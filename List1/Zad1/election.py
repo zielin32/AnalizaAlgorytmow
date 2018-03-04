@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from random import random
 from math import log2, ceil
+from statistics import mean, variance
 
 # population_ages = [23, 54, 12, 53, 65, 76, 43, 65, 12, 54, 89, 76, 34, 45, 65, 44, 33, 21, 32, 54, 87, 65, 78, 54, 74, 23, 25, 26, 1]
 # bins = [x*10 for x in range(0,9)]
@@ -49,6 +50,8 @@ def test1(number_of_stations, number_of_trials):
     for i in range (number_of_trials):
         number_of_slots_till_success.extend([election(number_of_stations, probability_of_broadcasting)])
     
+    print("Exp. value: {}\nVariance: {}"
+        .format(mean(number_of_slots_till_success), variance(number_of_slots_till_success)))
     plot_histogram(number_of_slots_till_success, bins)
 
 # scenario 2 - upper limit on number of stations
@@ -63,10 +66,12 @@ def test2(number_of_stations, upper_limit, number_of_trials):
     for i in range (number_of_trials):
         number_of_slots_till_success.extend([election(number_of_stations, probability_of_broadcasting)])
 
+    print("Exp. value: {}\nVariance: {}"
+        .format(mean(number_of_slots_till_success), variance(number_of_slots_till_success)))
     plot_histogram(number_of_slots_till_success, bins)
 
 
-test1(10, 10000)
-#test2(2, 100, 10000)
+#test1(10, 10000)
+test2(2, 100, 10000)
 #test2(50,100, 10000)
 #test2(100, 100, 10000)
