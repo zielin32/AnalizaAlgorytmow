@@ -41,6 +41,13 @@ def plot_histogram(number_of_slots_till_success, bins):
 
     plt.show()
 
+# only makes sense for scenario 2
+def calculate_percentage_of_sucesses_in_first_round(
+    number_of_trials_per_round, number_of_slots_till_success = [], *args):
+    
+    successes_in_first_round = [x for x in number_of_slots_till_success if x <= number_of_trials_per_round]
+    return len(successes_in_first_round) / len(number_of_slots_till_success)
+
 # scenario 1 - number of stations known
 def test1(number_of_stations, number_of_trials):
     bins = []
@@ -68,10 +75,14 @@ def test2(number_of_stations, upper_limit, number_of_trials):
 
     print("Exp. value: {}\nVariance: {}"
         .format(mean(number_of_slots_till_success), variance(number_of_slots_till_success)))
+    print("Fraction of successes in first round: {}"
+        .format(calculate_percentage_of_sucesses_in_first_round(
+            number_of_trials_per_round, number_of_slots_till_success)))
+
     plot_histogram(number_of_slots_till_success, bins)
 
 
 #test1(10, 10000)
-test2(2, 100, 10000)
+#test2(2, 100, 10000)
 #test2(50,100, 10000)
-#test2(100, 100, 10000)
+test2(100, 100, 10000)
